@@ -20,6 +20,7 @@ export default function Home() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   const handleVideoLoaded = useCallback(() => {
     setVideoReady(true);
@@ -28,6 +29,7 @@ export default function Home() {
 
   const handleVideoError = useCallback(() => {
     setVideoReady(true);
+    setVideoFailed(true);
     setLoadProgress(1);
   }, []);
 
@@ -116,7 +118,9 @@ export default function Home() {
               zIndex: 1,
             }}
           >
-            <div className="hero-video-container">
+            <div className={`hero-video-container ${videoFailed ? "fallback" : ""}`}
+              style={videoFailed ? { backgroundImage: "url('/frames/frame_000.png')", backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
+            >
               <video
                 className="hero-bg-video"
                 playsInline
@@ -126,6 +130,7 @@ export default function Home() {
                 preload="auto"
                 onLoadedData={handleVideoLoaded}
                 onError={handleVideoError}
+                style={videoFailed ? { display: 'none' } : undefined}
               >
                 <source src="/hero-bg.webm" type="video/webm" />
                 Your browser does not support the video tag.

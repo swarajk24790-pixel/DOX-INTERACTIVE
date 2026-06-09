@@ -331,6 +331,15 @@ body {
   z-index: 2;
 }
 
+/* Fallback state when video fails to load */
+.hero-video-container.fallback {
+  background-color: #000;
+}
+
+.hero-video-container.fallback .hero-bg-video {
+  display: none;
+}
+
 /* ─── Hero Text Overlay ─── */
 .hero-text-overlay {
   position: absolute;
