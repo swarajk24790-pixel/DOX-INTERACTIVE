@@ -304,39 +304,42 @@ body {
   background-clip: text;
 }
 
-/* ─── Hero Canvas ─── */
-.hero-canvas-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+/* ─── Hero Video Background ─── */
+.hero-video-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   z-index: 1;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
 }
 
-.hero-canvas-container canvas {
-  display: block;
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  image-rendering: auto;
-  transform: translateZ(0);
-  will-change: contents;
+  object-fit: cover;
+  will-change: transform;
+  pointer-events: none;
+  background: #000;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 35%, rgba(0, 0, 0, 0.75) 90%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* ─── Hero Text Overlay ─── */
 .hero-text-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
   text-align: center;
   padding: 2rem;
