@@ -31,6 +31,21 @@ export default function Home() {
     setLoadProgress(1);
   }, []);
 
+  // Simulate progress while the video is still loading.
+  useEffect(() => {
+    if (videoReady) return;
+
+    setLoadProgress(0);
+    const progressTimer = window.setInterval(() => {
+      setLoadProgress((prev) => {
+        if (prev >= 0.85) return prev;
+        return Math.min(0.85, prev + 0.02);
+      });
+    }, 100);
+
+    return () => window.clearInterval(progressTimer);
+  }, [videoReady]);
+
   // Memoize the onComplete callback to prevent re-triggering LoadingScreen effect
   const handleLoadComplete = useCallback(() => setAppReady(true), []);
 
@@ -89,6 +104,39 @@ export default function Home() {
           onComplete={handleLoadComplete}
         />
 
+        {/* Hero Section - background video hero with overlay text */}
+        <div>
+          <div
+            id="hero"
+            style={{
+              position: "relative",
+              width: "100%",
+              height: "100vh",
+              overflow: "hidden",
+              zIndex: 1,
+            }}
+          >
+            <div className="hero-video-container">
+              <video
+                className="hero-bg-video"
+                playsInline
+                muted
+                loop
+                autoPlay
+                preload="auto"
+                onLoadedData={handleVideoLoaded}
+                onError={handleVideoError}
+              >
+                <source src="/hero-bg.webm" type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="hero-video-overlay" />
+            </div>
+
+            <HeroTextOverlay />
+          </div>
+        </div>
+
         {appReady && (
           <>
             {/* Scroll Indicator */}
@@ -112,39 +160,6 @@ export default function Home() {
 
             {/* Navigation */}
             <Navigation isVisible={navVisible} />
-
-            {/* Hero Section - background video hero with overlay text */}
-            <div>
-              <div
-                id="hero"
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  height: "100vh",
-                  overflow: "hidden",
-                  zIndex: 1,
-                }}
-              >
-                <div className="hero-video-container">
-                  <video
-                    className="hero-bg-video"
-                    playsInline
-                    muted
-                    loop
-                    autoPlay
-                    preload="auto"
-                    onLoadedData={handleVideoLoaded}
-                    onError={handleVideoError}
-                  >
-                    <source src="/hero-bg.webm" type="video/webm" />
-                    Your browser does not support the video tag.
-                  </video>
-                  <div className="hero-video-overlay" />
-                </div>
-
-                <HeroTextOverlay />
-              </div>
-            </div>
 
             {/* Rest of page content (slides up or appears sequentially) */}
             <div
