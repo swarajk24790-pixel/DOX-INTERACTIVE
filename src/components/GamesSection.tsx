@@ -373,7 +373,7 @@ export default function GamesSection() {
                     backdropFilter: "blur(4px)",
                   }}
                 >
-                  {game.link.includes("itch.io") ? "Download on Itch.io →" : "Follow Updates on Instagram →"}
+                  {game.link.includes("itch.io") ? "Download on Itch.io →" : "Play Now →"}
                 </a>
               </div>
             </div>

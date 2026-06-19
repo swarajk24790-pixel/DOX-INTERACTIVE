@@ -107,7 +107,7 @@ export const RELEASED_GAMES: GameData[] = [
     color: "#39ff14",
     gradient: "linear-gradient(135deg, #020c02 0%, #062406 50%, #020c02 100%)",
     image: "/games/EVOLVE-POSTER1.jpeg",
-    link: "https://www.instagram.com/dox_interactive?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    link: "https://evolve-1-1.netlify.app/",
   },
 ];
 
